@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>Chapter 10</title>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>    
+
+<style>
+    #bigImage {
+      width: 450px;
+      height: 640px;
+    }
+</style>
+<body class="tiled">
+<header>
+    <h1>Art Filters</h1>
+</header>
+<main>
+    <div id="sliderBox">
+        <form id = "imageEditor">
+           <label>Opacity: </label><p><input type="range" id="sliderOpacity" min="0" max="100" value="100" class="sliders" /> <span id="numOpacity">100</span>%</p>
+           <p><label>Saturation: </label><input type="range" id="sliderSaturation" min="1" max="300" value="100" class="sliders"/> <span id="numSaturation">100</span>%</p>
+           <p><label>Brightness: </label><input type="range" id="sliderBrightness" min="0" max="300" value="100" class="sliders" /> <span id="numBrightness">100</span>%</p>
+           <p><label>Hue Rotate: </label><input type="range" id="sliderHue" min="0" max="360" value="0" class="sliders" /> <span id="numHue">0</span>deg</p>
+           <p><label>Grayscale: </label><input type="range" id="sliderGray" min="0" max="100" value="0" class="sliders"/> <span id="numGray">0</span>%</p>
+           <p><label>Blur: </label><input type="range" id="sliderBlur" min="0" max="10" value="0" class="sliders" /> <span id="numBlur">0</span>px</p>
+           <p><button id="resetFilters">Reset</button> </p>
+        </form>    
+    </div>
+    <figure id="imgManipulated">
+        <img id="bigImage" src="images/medium/painting1.jpg" > 
+        <figcaption id="smallText">
+            <em id="firstLine">Still Life with Flowers in a Glass Vase</em> <br>
+            <div id="secondLine">Jan Davidsz. de Heem, 1650 - 1683</div>
+        </figcaption>
+    </figure>   
+    <div id="thumbBox">
+        <div><img id = "pic1" src="images/small/painting1.jpg"  alt="Still Life with Flowers in a Glass Vase" title="Jan Davidsz. de Heem, 1650 - 1683"/></div>
+        <div><img id = "pic2" src="images/small/painting2.jpg"  alt="Portrait of Alida Christina Assink" title="Jan Adam Kruseman, 1833"/></div>
+        <div><img id = "pic3" src="images/small/painting3.jpg"  alt="Self-portrait" title="Vincent van Gogh, 1887"/></div>
+        <div><img id = "pic4" src="images/small/painting4.jpg"  alt="William II, Prince of Orange, and his Bride, Mary Stuart" title="Anthony van Dyck, 1641"/></div>
+        <div><img id = "pic5" src="images/small/painting5.jpg"  alt="Milkmaid" title="Johannes Vermeer, c. 1660"/></div>
+    </div>
+</main>
+
+<script>
+    $("#pic1").click( function(){ 
+        $("#bigImage").attr("src","images/medium/painting1.jpg");
+        $("#firstLine").html("Still Life with Flowers in a Glass Vase");
+        $("#secondLine").html("Jan Davidsz. de Heem, 1650 - 1683");
+    });
+    
+    $("#pic2").click( function(){ 
+        $("#bigImage").attr("src","images/medium/painting2.jpg");
+        $("#firstLine").html("Portrait of Alida Christina Assink");
+        $("#secondLine").html("Jan Adam Kruseman, 1833");
+    });
+
+    $("#pic3").click( function(){ 
+        $("#bigImage").attr("src","images/medium/painting3.jpg");
+        $("#firstLine").html("Self-portrait");
+        $("#secondLine").html("Vincent van Gogh, 1887");
+    });
+
+    $("#pic4").click( function(){ 
+        $("#bigImage").attr("src","images/medium/painting4.jpg");
+        $("#firstLine").html("William II, Prince of Orange, and his Bride, Mary Stuart");
+        $("#secondLine").html("Anthony van Dyck, 1641");
+    });
+
+    $("#pic5").click( function(){ 
+        $("#bigImage").attr("src","images/medium/painting5.jpg");
+        $("#firstLine").html("Milkmaid");
+        $("#secondLine").html("Johannes Vermeer, c. 1660");
+    });
+
+
+    function editImage() {
+        var opacity = $("#sliderOpacity").val();
+        var saturate = $("#sliderSaturation").val();
+        var brightness = $("#sliderBrightness").val();
+        var huer = $("#sliderHue").val(); 
+        var grays = $("#sliderGray").val(); 
+        var blur = $("#sliderBlur").val(); 
+
+        $("#numOpacity").html(opacity);
+        $("#numSaturation").html(saturate);
+        $("#numBrightness").html(brightness);
+        $("#numHue").html(huer);
+        $("#numGray").html(grays);
+        $("#numBlur").html(blur);
+
+        // JUST MADE
+        $("#imgManipulated img").css(
+            "filter", 'opacity('+opacity+
+            '%) saturate('+saturate+
+            '%) brightness('+ brightness+ 
+            '%) hue-rotate('+ huer+
+            'deg) grayscale('+grays+
+            '%) blur('+blur+'px)'
+        );
+
+        $("#imgManipulated img").css(
+            "-webkit-filter", 'opacity('+opacity+
+            '%) saturate('+saturate+
+            '%) brightness('+ brightness+ 
+            '%) hue-rotate('+ huer+
+            'deg) grayscale('+grays+
+            '%) blur('+blur+'px)'
+        );
+
+        ///**********************************
+        }
+
+        $("input[type=range]").change(editImage).mousemove(editImage);
+
+        // Reset sliders back to original values
+        $('#imageEditor').on('reset', function () {
+        setTimeout(function() {
+            editImage();
+        }, 0);
+        });
+
+    var manipulateImage = $('#displayImage');
+    manipulateImage.css('-webkit-filter', cssSettings);
+    manipulateImage.css('filter', cssSettings);
+
+</script>    
+
+</body>   
+</html>
